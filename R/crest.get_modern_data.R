@@ -561,8 +561,11 @@ crest.get_modern_data <- function( pse, taxaType, climate,
 
     if (ai.sqrt & 'ai' %in% crest$parameters$climate) {
         crest$modelling$climate_space[, "ai"] <- sqrt(crest$modelling$climate_space[, "ai"])
-        for (tax in crest$inputs$taxa_names) {
+        for (tax in crest$inputs$taxa.name) {
             crest$modelling$distributions[[tax]][, 'ai'] <- sqrt(crest$modelling$distributions[[tax]][, 'ai'])
+        }
+        if((!is.na(crest$misc$site_info[['long']])) & (!is.na(crest$misc$site_info[['lat']]))) {
+            crest$misc$site_info$climate$'ai' <- sqrt(crest$misc$site_info$climate$'ai')
         }
     }
 

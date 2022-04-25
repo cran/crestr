@@ -45,7 +45,7 @@ plot_loo <- function( x, optima=TRUE, climate=x$parameters$climate,
                       save=FALSE, filename='Diagram_loo.pdf',
                       as.png = FALSE, png.res=300,
                       width=3.54, height= 9,
-                      yax_incr = NA, bar_width=1,
+                      yax_incr = NA, bar_width = diff(range(x$inputs$x))/50,
                       xlim=NA, tickAtSample=FALSE,
                       col_pos = 'black', col_neg='grey80', title=NA ) {
 
@@ -69,10 +69,10 @@ plot_loo <- function( x, optima=TRUE, climate=x$parameters$climate,
         names(col_pos) = names(col_neg) = names(yax_incr) = climate
         if(!is.na(title[1])) names(title) = climate
 
-        par_usr <- graphics::par(no.readonly = TRUE)
-        on.exit(graphics::par(par_usr))
 
         if(!save) {
+            par_usr <- graphics::par(no.readonly = TRUE)
+            on.exit(graphics::par(par_usr))
             graphics::par(mfrow=c(1, length(climate)))
         }
 
@@ -108,9 +108,9 @@ plot_loo <- function( x, optima=TRUE, climate=x$parameters$climate,
             if(is.na(unique(yax_incr)[1])) yax_incr2 <- round(max(abs(df[, -1])))/10
             if(is.na(bar_width)) bar_width2 <- round(diff(xlim) / nrow(df))
             if(is.na(unique(title)[1])) {
-                title2 <- accClimateVariables(clim)[3]
+                title2 <- paste('Leave-one-out anomalies for', accClimateVariables(clim)[3], sep='\n')
             } else {
-                title2 <- title[clim]
+                title2 <- paste('Leave-one-out anomalies for', title[clim], sep='\n')
             }
 
             if (yax_incr2 == 0) yax_incr2 <- x$parameters$bin_width[clim, ] / 10

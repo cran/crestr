@@ -26,13 +26,22 @@ climate change from fossil assemblage data. The approach is based on the
 estimation of conditional responses of different bio-proxies to various
 climate parameters. These responses take the form of probability density
 functions (*PDFs*). The details of the method have been described in
-[Chevalier *et al.* (2014)](http://www.doi.org/10.5194/cp-10-2081-2014)
-and the calibrated data presented in [Chevalier
-(2019)](http://www.doi.org/10.1016/j.gloplacha.2019.01.016).
+[Chevalier *et al.* (2014)](http://www.doi.org/10.5194/cp-10-2081-2014),
+the calibrated data are presented in [Chevalier
+(2019)](http://www.doi.org/10.1016/j.gloplacha.2019.01.016) and the
+package is fully described in [Chevalier
+(2022)](https://cp.copernicus.org/articles/18/821/2022/).
 
 ## Installation
 
-You can install the development version from
+You can install the package from
+[CRAN](https://CRAN.R-project.org/package=crestr).
+
+``` r
+install.packages("crestr")
+```
+
+You can also install the development version from
 [GitHub](https://github.com/) with:
 
 ``` r
@@ -226,10 +235,10 @@ names(recons)
 #> [5] "misc"
 lapply(recons$reconstructions, names)
 #> $bio1
-#> [1] "posterior"     "uncertainties" "optima"       
+#> [1] "likelihood"    "uncertainties" "optima"       
 #> 
 #> $bio12
-#> [1] "posterior"     "uncertainties" "optima"
+#> [1] "likelihood"    "uncertainties" "optima"
 ```
 
 ``` r
@@ -249,7 +258,7 @@ str(recons$reconstructions$bio1$optima)
 ```
 
 ``` r
-signif(recons$reconstructions$bio1$posterior[1:6, 1:6], 3)
+signif(recons$reconstructions$bio1$likelihood[1:6, 1:6], 3)
 #>          [,1]     [,2]     [,3]     [,4]     [,5]     [,6]
 #> [1,] 0.00e+00 8.02e-02 1.60e-01 2.40e-01 3.21e-01 4.01e-01
 #> [2,] 8.41e-15 1.15e-14 1.57e-14 2.14e-14 2.92e-14 3.97e-14
@@ -257,7 +266,7 @@ signif(recons$reconstructions$bio1$posterior[1:6, 1:6], 3)
 #> [4,] 8.41e-15 1.15e-14 1.57e-14 2.14e-14 2.92e-14 3.97e-14
 #> [5,] 8.41e-15 1.15e-14 1.57e-14 2.14e-14 2.92e-14 3.97e-14
 #> [6,] 1.45e-18 2.09e-18 3.01e-18 4.32e-18 6.19e-18 8.86e-18
-str(recons$reconstructions$bio1$posterior)
+str(recons$reconstructions$bio1$likelihood)
 #>  num [1:21, 1:500] 0.00 8.41e-15 8.41e-15 8.41e-15 8.41e-15 ...
 ```
 
@@ -290,3 +299,6 @@ list.files(file.path(getwd(), 'crest-test'))
     from fossil assemblages at a global scale. *Glob. Planet. Change*
     175, 27–35.
     [10.1016/j.gloplacha.2019.01.016](http://www.doi.org/10.1016/j.gloplacha.2019.01.016)
+-   Chevalier, M., 2022. *crestr* an R package to perform probabilistic
+    climate reconstructions from palaeoecological datasets. Clim. Past
+    [doi:10.5194/cp-18-821-2022](https://www.doi.org/10.5194/cp-18-821-2022)

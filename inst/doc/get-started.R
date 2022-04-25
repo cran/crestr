@@ -101,7 +101,7 @@ reconstr <- crest.calibrate( reconstr, # A crestObj produced at the previous sta
 
 plot_climateSpace(reconstr)
 
-## ----plot-plot_taxaCharacteristics, fig.show="hold", fig.align='center', fig.height=4.5, fig.width=4.5, out.width="70%", fig.cap="**Fig. 6**: Distributions and responses of _Taxon2_ and _Taxon6_ to _bio1_. Again, ignore the coastline of Africa on this plot."----
+## ----plot-plot_taxaCharacteristics, fig.show="hold", fig.align='center', fig.height=6, fig.width=6, out.width="70%", fig.cap="**Fig. 6**: Distributions and responses of _Taxon2_ and _Taxon6_ to _bio1_. Again, ignore the coastline of Africa on this plot."----
 plot_taxaCharacteristics(reconstr, taxanames='Taxon2', climate='bio1', h0=0.2)
 plot_taxaCharacteristics(reconstr, taxanames='Taxon6', climate='bio1', h0=0.2)
 
@@ -119,9 +119,9 @@ head(reconstr$reconstructions$bio1$optima)
 
 str(reconstr$reconstructions$bio1$optima)
 
-signif(reconstr$reconstructions$bio1$posterior[1:6, 1:6], 3)
+signif(reconstr$reconstructions$bio1$likelihood[1:6, 1:6], 3)
 
-str(reconstr$reconstructions$bio1$posterior)
+str(reconstr$reconstructions$bio1$likelihood)
 
 ## ----plot, fig.show="hold", fig.width="50%", fig.width=5, fig.height=3, fig.align='center', fig.cap="**Fig. 7**: (top) Reconstruction of mean annual temperature with the full distribution of the uncertainties. (bottom) Reconstruction of annual precipitation using the simplified visualisation option. In both cases, different levels of uncertainties can be provided."----
 plot(reconstr, climate = 'bio1')
