@@ -1,3 +1,24 @@
+# crestr 1.1.0
+
+* crestr is now compatible with the SQLite3 gbif4crest database. It is therefore usable offline.
+    * Access: https://figshare.com/articles/dataset/GBIF_for_CREST_database/6743207
+
+
+# crestr 1.0.3
+
+* Fixing minor bugs, including:
+    * If the `climate` field didn't match the column names of `selectedTaxa`, some functions were crashing (at least `plot_climateSpace`) because no distribution data were extracted.
+    * Checks to ensure the column names of climate_space and distributions are correct for `crest.set_modern_data()`
+    * Check to ensure the `selectedTaxa` has default values for all selected variables.
+
+
+
+# crestr 1.0.2
+
+* Replaced class(dat) == 'RasterLayer' by inherits(dat, 'RasterLayer')
+
+* Improved documentation
+
 
 # crestr 1.0.1
 
@@ -24,9 +45,7 @@
 
 * Excluding all the distribution grid cells without any climate data.
 
-* Replaced class(dat) == 'RasterLayer' by inherits(dat, 'RasterLayer')
 
-* Improved documentation
 
 
 # crestr 1.0.0
