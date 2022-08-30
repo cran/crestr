@@ -91,8 +91,13 @@ getDistribTaxa <- function(taxIDs,
 
     # If no climate variables are provided, return values for ALL variables.
     if (unique(is.na(climate))) {
-        CLIM3 <- paste(', ', paste(accClimateVariables()[,2], collapse = ", "))
-        climate <- accClimateVariables()[,2]
+        taxaType <- getTaxaTypeFromTaxID(taxIDs[1])
+        if(taxaType %in% c(1, 2, 3, 6)) {
+            climate <- accClimateVariables(domain='Terrestrial')[, 2]
+        } else {
+            climate <- accClimateVariables(domain='Marine')[, 2]
+        }
+        CLIM3 <- paste(', ', paste(climate, collapse = ", "))
     } else {
         CLIM3 <- paste(', ', paste(climate, collapse = ", "))
     }
@@ -147,6 +152,15 @@ getDistribTaxa <- function(taxIDs,
 
     if(nrow(res) == 0) return(stats::setNames(data.frame(matrix(ncol = length(c('taxonid', 'longitude', 'latitude', climate)), nrow = 0)), c('taxonid', 'longitude', 'latitude', climate)))
 
+
+    # Removing the 'NULL' when using the SQLite3 database
+    NULLS <- ""
+    if(stringr::str_detect(base::tolower(dbname), '.sqlite3')) {
+        for(clim in climate) {
+            NULLS <- paste0(NULLS, paste0("  AND ", clim, " IS NOT 'NULL' ") )
+        }
+    }
+
     req2 <- paste0(
       "  SELECT DISTINCT locid, longitude, latitude", CLIM3,
       "    FROM data_qdgc ",
@@ -159,12 +173,12 @@ getDistribTaxa <- function(taxIDs,
       "     ", GEO_terr, " ",
       "     ", GEO_mari, " ",
       "     ", WWF, " ",
+      "     ", NULLS,
       "     ", CLIM4, " "
     )
     res2 <- dbRequest(req2, dbname)
 
     # Executing the request------------------------------------------------------
-
     res <- merge(res, res2, by='locid')
     res[, c('taxonid', 'longitude', 'latitude', climate)]
 }

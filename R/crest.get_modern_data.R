@@ -248,15 +248,6 @@ crest.get_modern_data <- function( pse, taxaType, climate,
               ),
               dbname
             )
-            print(              paste0(
-                            "SELECT DISTINCT realm, biome, ecoregion, count(*) FROM biogeography WHERE ",
-                            s_realms,
-                            ifelse(s_realms != '' & ( s_biomes != '' | s_ecoregions != ''), ' AND ', ''),
-                            s_biomes,
-                            ifelse(s_biomes != '' & s_ecoregions != '', ' AND ', ''),
-                            s_ecoregions,
-                            " GROUP BY realm, biome,ecoregion"
-                          ))
             if (length(res) == 0) {
                 cat(paste("Problem here. No result for any of the combination realm x biome x ecoregion .\n", sep = ""))
             } else {
@@ -322,6 +313,12 @@ crest.get_modern_data <- function( pse, taxaType, climate,
     if(verbose) cat('[OK]\n  <> Checking the pse table ................ ')
     ## . Formatting data in the expected format ---------------------------------
 
+    if(!('Level' %in% colnames(pse) & 'Family' %in% colnames(pse) & 'Genus' %in% colnames(pse) & 'Species' %in% colnames(pse) & 'ProxyName' %in% colnames(pse) )) {
+        stop(paste0("\nThe PSE data frame should contain columns with the following 5 names: 'Level', 'Family', 'Genus', 'Species' and 'ProxyName' .\n\n"))
+    } else {
+        pse <- pse[, c('Level', 'Family', 'Genus', 'Species', 'ProxyName')]
+    }
+
     w <- (pse$Level == 4)
     if (sum(w) > 0) {
         for (tax in unique(pse$ProxyName[w])) {
@@ -380,6 +377,8 @@ crest.get_modern_data <- function( pse, taxaType, climate,
         if(unique(is.numeric(crest$inputs$x))) {
             crest$inputs$df <- crest$inputs$df[order(crest$inputs$x), ]
             crest$inputs$x  <- crest$inputs$x[order(crest$inputs$x)]
+            crest$inputs$x[is.na(crest$inputs$x)] <- 0
+
         }
 
         w <- (apply(crest$inputs$df, 2, sum) == 0)
@@ -543,7 +542,7 @@ crest.get_modern_data <- function( pse, taxaType, climate,
     if (crest$parameters$taxaType == 1) {
         pbi <- 100
         for (tax in crest$inputs$taxa.name) {
-            cat(paste0('  <> Postprocessing plant data ............. ', stringr::str_pad(paste0(round(pbi / length(crest$inputs$taxa.name)),'%\r'), width=4, side='left')))
+            if(verbose) cat(paste0('  <> Postprocessing plant data ............. ', stringr::str_pad(paste0(round(pbi / length(crest$inputs$taxa.name)),'%\r'), width=4, side='left')))
             utils::flush.console()
             for(w in which(crest$inputs$pse[ ,'ProxyName'] == tax)) {
                 taxonomy <- getTaxonomy(    family = crest$inputs$pse[w, 'Family'],
@@ -556,7 +555,7 @@ crest.get_modern_data <- function( pse, taxaType, climate,
             }
         pbi <- pbi + 100
         }
-        cat('  <> Postprocessing plant data ............. [OK]\n')
+        if(verbose) cat('  <> Postprocessing plant data ............. [OK]\n')
     }
     crest$inputs$pse <- cbind( crest$inputs$pse, 'Class_name' = class_names)
 
@@ -574,6 +573,7 @@ crest.get_modern_data <- function( pse, taxaType, climate,
       basins=crest$parameters$basins, sectors=crest$parameters$sectors,
       realms=crest$parameters$realms, biomes=crest$parameters$biomes,
       ecoregions=crest$parameters$ecoregions,
+      elev_min=elev_min, elev_max=elev_max, elev_range=elev_range,
       dbname
     )
 
@@ -618,6 +618,11 @@ crest.get_modern_data <- function( pse, taxaType, climate,
       cat('[OK]\n')
       cat(paste0('## Data extraction completed.\n\n'))
     }
+
+    if(length(distributions) == 0) {
+        warning(paste0("No distributions available in the defined study area N: ", crest$parameters$ymx," S: ", crest$parameters$ymn, " W: ",crest$parameters$xmn, " E: ",crest$parameters$xmx, ".\n\n"))
+    }
+
     crest$misc$stage <- 'data_extracted'
     crest
 }

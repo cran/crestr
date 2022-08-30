@@ -12,11 +12,11 @@
 
 <meta name="author" content="Manuel Chevalier" />
 
-<meta name="date" content="2022-07-01" />
+<meta name="date" content="2022-08-30" />
 
 <title>Calibration data for CREST</title>
 
-<script src="calibration-data_files/header-attrs-2.14/header-attrs.js"></script>
+<script src="calibration-data_files/header-attrs-2.16/header-attrs.js"></script>
 
 <style type="text/css">
   code{white-space: pre-wrap;}
@@ -33,7 +33,7 @@
 
 
 
-<link rel="stylesheet" href="/Library/Frameworks/R.framework/Versions/4.0/Resources/library/rmarkdown/rmarkdown/templates/html_vignette/resources/vignette.css" type="text/css" />
+<link rel="stylesheet" href="/Library/Frameworks/R.framework/Versions/4.2/Resources/library/rmarkdown/rmarkdown/templates/html_vignette/resources/vignette.css" type="text/css" />
 
 
 
@@ -47,7 +47,7 @@
 
 <h1 class="title toc-ignore">Calibration data for CREST</h1>
 <h4 class="author">Manuel Chevalier</h4>
-<h4 class="date">2022-07-01</h4>
+<h4 class="date">2022-08-30</h4>
 
 
 
@@ -369,24 +369,24 @@ example.
 </p>
 </div>
 <p><br ></p>
-<p>Due to its large size (about 15 Gb), this database is not downloaded
+<p>Due to its large size (about 23 Gb), this database is not downloaded
 when installing the package, but it can be assessed differently. First,
 the data are stored in an open-access, cloud-based PostgreSQL database
-that can be dynamically accessed via <code>crestr</code>. This is the
-recommended option, as users without any <em>a priori</em> SQL knowledge
-can benefit from the package’s interface to automatically query the
-database simply by providing study-specific parameters, such as the name
-of the taxa or boundaries for the study area, to import all the
-necessary data in the correct format to the R environment. Second,
-advanced users can also directly query the database to extract and
-curate data from the <code>DISTRIB</code> or <code>DISTRIB_QDGC</code>
-tables using the <a
-href="https://mchevalier2.github.io/crestr/reference/dbRequest.html">dbRequest()</a>
-function, and subsequently associate these data with climate variables.
-Finally, the complete <em>gbif4crest</em> calibration dataset can also
-be downloaded as a SQLite3 portable database file from <a
+that can be dynamically accessed via <code>crestr</code>. Second, the
+database can also be downloaded as a SQLite3 file format from <a
 href="https://figshare.com/articles/dataset/GBIF_for_CREST_database/6743207"
-target="_blank">here</a>.</p>
+target="_blank">here</a> to work offline. No <em>a priori</em> SQL
+knowledge is required to use any of these two options, so that users can
+benefit from the package’s interface to automatically query the database
+simply by providing study-specific parameters, such as the name of the
+taxa or boundaries for the study area, to import all the necessary data
+in the correct format to the R environment. Alternatively, advanced
+users can also directly query the database to extract and curate data
+from the <code>DISTRIB</code> or <code>DISTRIB_QDGC</code> tables using
+the <a
+href="https://mchevalier2.github.io/crestr/reference/dbRequest.html">dbRequest()</a>
+function, and subsequently associate these data with climate
+variables.</p>
 <p><br ></p>
 </div>
 <div id="ref" class="section level2">

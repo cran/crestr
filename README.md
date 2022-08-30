@@ -21,6 +21,7 @@ version](https://img.shields.io/github/r-package/v/mchevalier2/crestr)](https://
 downloads](https://cranlogs.r-pkg.org/badges/grand-total/crestr) ![Last
 month dowloads](https://cranlogs.r-pkg.org/badges/crestr) <br >
 
+[![R-CMD-check](https://github.com/mchevalier2/crestr/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/mchevalier2/crestr/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 # 
@@ -178,7 +179,7 @@ recons
 #> *   x Climate reconstructed ....... TRUE
 #> *   x Leave-One-Out analysis ...... FALSE
 #> *
-#> * The dataset to be reconstructed (`df`) is composed of 20 samples with 6 taxa.
+#> * The dataset to be reconstructed (`df`) is composed of 20 samples with 7 taxa.
 #> * Variables to analyse: bio1, bio12
 #> *
 #> * The calibration dataset was defined using the following set of parameters:
@@ -256,7 +257,7 @@ head(recons$reconstructions$bio1$optima)
 #> 6   6 18.11623 18.12464
 str(recons$reconstructions$bio1$optima)
 #> 'data.frame':    20 obs. of  3 variables:
-#>  $ Age   : int  1 2 3 4 5 6 7 8 9 10 ...
+#>  $ Age   : num  1 2 3 4 5 6 7 8 9 10 ...
 #>  $ optima: num  15.7 15.7 15.7 15.7 17.3 ...
 #>  $ mean  : num  15.7 15.7 15.7 15.7 17.3 ...
 ```
@@ -294,15 +295,15 @@ list.files(file.path(getwd(), 'crest-test'))
 
 ## References
 
--   Chevalier, M., Cheddadi, R., Chase, B.M., 2014. CREST (Climate
-    REconstruction SofTware): a probability density function (PDF)-based
-    quantitative climate reconstruction method. *Clim. Past* 10,
-    2081–2098.
-    [10.5194/cp-10-2081-2014](http://www.doi.org/10.5194/cp-10-2081-2014)
--   Chevalier, M., 2019. Enabling possibilities to quantify past climate
-    from fossil assemblages at a global scale. *Glob. Planet. Change*
-    175, 27–35.
-    [10.1016/j.gloplacha.2019.01.016](http://www.doi.org/10.1016/j.gloplacha.2019.01.016)
--   Chevalier, M., 2022. *crestr* an R package to perform probabilistic
-    climate reconstructions from palaeoecological datasets. Clim. Past
-    [doi:10.5194/cp-18-821-2022](https://www.doi.org/10.5194/cp-18-821-2022)
+- Chevalier, M., Cheddadi, R., Chase, B.M., 2014. CREST (Climate
+  REconstruction SofTware): a probability density function (PDF)-based
+  quantitative climate reconstruction method. *Clim. Past* 10,
+  2081–2098.
+  [10.5194/cp-10-2081-2014](http://www.doi.org/10.5194/cp-10-2081-2014)
+- Chevalier, M., 2019. Enabling possibilities to quantify past climate
+  from fossil assemblages at a global scale. *Glob. Planet. Change* 175,
+  27–35.
+  [10.1016/j.gloplacha.2019.01.016](http://www.doi.org/10.1016/j.gloplacha.2019.01.016)
+- Chevalier, M., 2022. *crestr* an R package to perform probabilistic
+  climate reconstructions from palaeoecological datasets. Clim. Past
+  [doi:10.5194/cp-18-821-2022](https://www.doi.org/10.5194/cp-18-821-2022)
