@@ -19,7 +19,7 @@ package
 version](https://img.shields.io/github/r-package/v/mchevalier2/crestr)](https://img.shields.io/github/r-package/v/mchevalier2/crestr)
 <br > ![Total
 downloads](https://cranlogs.r-pkg.org/badges/grand-total/crestr) ![Last
-month dowloads](https://cranlogs.r-pkg.org/badges/crestr) <br >
+month downloads](https://cranlogs.r-pkg.org/badges/crestr) <br >
 
 [![R-CMD-check](https://github.com/mchevalier2/crestr/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/mchevalier2/crestr/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->

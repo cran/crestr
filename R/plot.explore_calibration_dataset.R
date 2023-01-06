@@ -32,6 +32,13 @@ explore_calibration_dataset <- function( taxaType,
 
     if(base::missing(taxaType)) taxaType
 
+    db <- connect_online(dbname = dbname)
+    if(!methods::is(db, 'DBIConnection')) {
+        cat("[FAILED]\n")
+        cat("The connection to the database failed and the process has been stopped. check your internet connection and database IDs.\n")
+        return(NA)
+    }
+
     coords        <- check_coordinates(xmn, xmx, ymn, ymx)
     xmn           <- coords[1]
     xmx           <- coords[2]
@@ -100,7 +107,7 @@ explore_calibration_dataset <- function( taxaType,
         veg_space      <- plyr::count(veg_space)
         veg_space      <- veg_space[!is.na(veg_space[, 1]), ]
         veg_space[, 3] <- base::log10(veg_space[, 3])
-        veg_space      <- raster::rasterFromXYZ(veg_space, crs=sp::CRS("+init=epsg:4326"))
+        veg_space      <- raster::rasterFromXYZ(veg_space, crs=sp::CRS("+proj=longlat +datum=WGS84 +no_defs"))
     } else {
         veg_space <- NA
     }

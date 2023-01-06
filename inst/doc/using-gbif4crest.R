@@ -31,18 +31,15 @@ reconstr <- crest.get_modern_data(  pse = PSE,
                                 verbose = FALSE
 )
 
-tapply(reconstr$modelling$taxonID2proxy[,1], reconstr$modelling$taxonID2proxy[,2], length)
+if(is.crestObj(reconstr)) tapply(reconstr$modelling$taxonID2proxy[,1], reconstr$modelling$taxonID2proxy[,2], length)
 
-## ----offline-option, echo=TRUE, eval=TRUE-------------------------------------
-
-reconstr <- crest.get_modern_data(  pse = PSE,
-                                taxaType = 1,
-                                climate = c("bio1", "bio12"),
-                                # The full path to the local gbif4crest database
-                                dbname = "gbif4crest_02",
-                                verbose = FALSE
-)
-
-tapply(reconstr$modelling$taxonID2proxy[,1], reconstr$modelling$taxonID2proxy[,2], length)
-
+## ----offline-option, echo=TRUE, eval=FALSE------------------------------------
+#  
+#  reconstr <- crest.set_modern_data(  pse = PSE,
+#                                  taxaType = 1,
+#                                  climate = c("bio1", "bio12"),
+#                                  # The full path to the local gbif4crest database
+#                                  dbname = "path/to/gbif4crest_02.sqlite3",
+#                                  verbose = FALSE
+#  )
 

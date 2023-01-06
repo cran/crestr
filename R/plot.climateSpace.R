@@ -51,7 +51,7 @@ plot_climateSpace <- function( x,
 
     if(base::missing(x)) x
 
-    if (methods::is(x)[1] == 'crestObj') {
+    if (is.crestObj(x)) {
         test <- is.na(x$modelling$pdfs)
         if( test[1] & length(test) == 1 ) {
             stop('The crestObj requires the climate space to be calibrated. Run crest.calibrate() on your data.\n')
@@ -110,7 +110,7 @@ plot_climateSpace <- function( x,
         veg_space      <- plyr::count(veg_space)
         veg_space      <- veg_space[!is.na(veg_space[, 1]), ]
         veg_space[, 3] <- base::log10(veg_space[, 3])
-        veg_space      <- raster::rasterFromXYZ(veg_space, crs=sp::CRS("+init=epsg:4326"))
+        veg_space      <- raster::rasterFromXYZ(veg_space, crs=sp::CRS("+proj=longlat +datum=WGS84 +no_defs"))
 
         ## Defining plotting matrix ------------------------------------------------
         m3 <- rep(c(1:(2*length(climate))), times=rep(c(1,3), times=length(climate)))
@@ -228,7 +228,7 @@ plot_climateSpace <- function( x,
             brks <- c(x$modelling$ccs[[clim]]$k1, max(x$modelling$ccs[[clim]]$k1)+diff(x$modelling$ccs[[clim]]$k1[1:2]))
             R1 <- raster::rasterFromXYZ(cbind(climate_space[, 1:2],
                                               climate_space[, clim] ),
-                                        crs = sp::CRS("+init=epsg:4326"))
+                                        crs = sp::CRS("+proj=longlat +datum=WGS84 +no_defs"))
             graphics::par(mar = c(0, 0, 0, 0), ps=8*3/2)
             plot_map_eqearth(R1, ext, zlim=range(brks), col=viridis::viridis(length(brks)-1),
             brks.pos = brks, brks.lab = brks,
@@ -317,14 +317,14 @@ plot_climateSpace <- function( x,
                 graphics::segments(h1$breaks[1],0,max(h1$breaks),0)
                 graphics::par(opar)
             }
-            graphics::text(xval[2], max(h2$counts)/2, 'Numer of occurrences', cex=6/8, adj=c(0.5, 1), srt=-90)
+            graphics::text(xval[2], max(h2$counts)/2, 'Number of occurrences', cex=6/8, adj=c(0.5, 1), srt=-90)
         }
 
         if(save) {
           grDevices::dev.off()
         }
     } else {
-        stop('This function only works with a crestObj.\n\n')
+        cat('This function only works with a crestObj.\n\n')
     }
     invisible()
 }

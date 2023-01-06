@@ -54,7 +54,7 @@ plot_combinedPDFs <- function( x, samples=1:length(x$inputs$x), climate=x$parame
 
     if(base::missing(x)) x
 
-    if (methods::is(x)[1] == 'crestObj') {
+    if (is.crestObj(x)) {
         if (length(x$reconstructions) == 0 ) {
             stop('The crestObj requires the fossil data. Run crest.reconstruct() on your data.\n\n')
             return(invisible())
@@ -82,7 +82,7 @@ plot_combinedPDFs <- function( x, samples=1:length(x$inputs$x), climate=x$parame
         if(!save) {
             par_usr <- graphics::par(no.readonly = TRUE)
             on.exit(graphics::par(par_usr))
-            graphics::par(ask=TRUE)
+            if(length(samples) > 1) graphics::par(ask=TRUE)
         }
 
         ymx <- max(x$reconstructions[[climate]]$likelihood[-1, ], na.rm=TRUE)
@@ -183,7 +183,6 @@ plot_combinedPDFs <- function( x, samples=1:length(x$inputs$x), climate=x$parame
                 ordered_tax <- c(ordered_tax, taxa[order(weights, decreasing=FALSE)])
             }
 
-
             graphics::par(mar=c(2,0.1,0.5,0.1))
             graphics::par(ps=8, cex=1)
             graphics::plot( 0,0, type='n', xaxs='i', yaxs='i', frame=FALSE, axes=FALSE, xlab='', ylab='', main='',
@@ -204,7 +203,7 @@ plot_combinedPDFs <- function( x, samples=1:length(x$inputs$x), climate=x$parame
             if(!as.png) grDevices::dev.off()
         }
     } else {
-      stop('This function only works with a crestObj.\n\n')
+        cat('This function only works with a crestObj.\n\n')
     }
     invisible(x)
 }

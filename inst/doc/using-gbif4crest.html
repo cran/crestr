@@ -364,7 +364,7 @@ only have to provide the name of the database to the field
 <span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>                                <span class="at">verbose =</span> <span class="cn">FALSE</span></span>
 <span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="fu">tapply</span>(reconstr<span class="sc">$</span>modelling<span class="sc">$</span>taxonID2proxy[,<span class="dv">1</span>], reconstr<span class="sc">$</span>modelling<span class="sc">$</span>taxonID2proxy[,<span class="dv">2</span>], length)</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="fu">is.crestObj</span>(reconstr)) <span class="fu">tapply</span>(reconstr<span class="sc">$</span>modelling<span class="sc">$</span>taxonID2proxy[,<span class="dv">1</span>], reconstr<span class="sc">$</span>modelling<span class="sc">$</span>taxonID2proxy[,<span class="dv">2</span>], length)</span>
 <span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Artemisia Ericaceae      Olea </span></span>
 <span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       347      4300        35</span></span></code></pre></div>
 <p><br></p>
@@ -375,17 +375,13 @@ only have to provide the name of the database to the field
 full database in a zipped format from <a href="https://figshare.com/articles/dataset/GBIF_for_CREST_database/6743207" target="_blank">[here]</a>. Once unzipped, the file, which is about
 ~23Gb, should be saved in a location of interest.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>reconstr <span class="ot">&lt;-</span> <span class="fu">crest.get_modern_data</span>(  <span class="at">pse =</span> PSE,</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>reconstr <span class="ot">&lt;-</span> <span class="fu">crest.set_modern_data</span>(  <span class="at">pse =</span> PSE,</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>                                <span class="at">taxaType =</span> <span class="dv">1</span>,</span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>                                <span class="at">climate =</span> <span class="fu">c</span>(<span class="st">&quot;bio1&quot;</span>, <span class="st">&quot;bio12&quot;</span>),</span>
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>                                <span class="co"># The full path to the local gbif4crest database</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>                                <span class="at">dbname =</span> <span class="st">&quot;gbif4crest_02&quot;</span>,</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>                                <span class="at">dbname =</span> <span class="st">&quot;path/to/gbif4crest_02.sqlite3&quot;</span>,</span>
 <span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>                                <span class="at">verbose =</span> <span class="cn">FALSE</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="fu">tapply</span>(reconstr<span class="sc">$</span>modelling<span class="sc">$</span>taxonID2proxy[,<span class="dv">1</span>], reconstr<span class="sc">$</span>modelling<span class="sc">$</span>taxonID2proxy[,<span class="dv">2</span>], length)</span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Artemisia Ericaceae      Olea </span></span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       347      4300        35</span></span></code></pre></div>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
 <p>The file can be saved anywhere and named in any way. However. the
 inclusion of the file extension ‘.sqlite3’ is key for the package to be
 guided to the right option.</p>

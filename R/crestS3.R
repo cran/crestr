@@ -335,6 +335,11 @@ plot.crestObj <- function(x,
 
     if(base::missing(x)) x
 
+    if(!is.crestObj(x)) {
+        cat('\nx should be a crestObj.\n\n')
+        return(invisible(NA))
+    }
+
     if (length(x$reconstructions) == 0 || is.null(climate)) {
         stop("No reconstruction available for plotting.\n")
     }
@@ -397,7 +402,7 @@ plot.crestObj <- function(x,
             xx <- sort(base::jitter(x$inputs$x, 0.0001))
         }
 
-
+        uncertainties <- sort(uncertainties)
 
         val <- apply(pdfter[, -1], 2, function(x) {
             if(is.na(x[1])) return(c(NA, NA))
